@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소수 찾기 2</title>
+</head>
+<body>
+    <h1>소수 목록</h1>
+    <div id="result"></div>
+    <script>
+        var numbers = {};
+        numbers.all = [];
+        numbers.prime = [];
+
+        numbers.isPrime = function(number) {  // 소수인지 아닌지 판별 함수
+            for (var i = 2; i < number; i++) {
+                if (number % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        
+        numbers.addAll = function(max_num) {  // max 숫자까지 all 리스트에 추가하는 함수
+            for (var i = 2; i <= max_num; i++) {
+                this.all.push(i);
+            }
+        };
+
+        numbers.addPrime = function(number) {  // isPrime 함수에서 판별한 숫자를 prime 리스트에 추가하는 함수
+            for (var i = 0; i < this.all.length; i++) {
+                var n = this.all[i];
+                if (this.isPrime(n)) {
+                    this.prime.push(n);
+                }
+            }
+        };
+
+        numbers.getAllPrimes = function() {  // prime 리스트를 가져와서 출력하는 함수
+            var ret = "";
+            ret += "<h2>전체 소수의 개수: " + this.prime.length + "</h2>\n";
+            
+            for (var i = 0; i < this.prime.length; i++) {
+                ret += (i + 1) + "번째 소수: " + this.prime[i] + "<br>\n";
+            }
+            return ret;
+        }
+
+        numbers.addAll(10000);
+        numbers.addPrime();
+        document.getElementById('result').innerHTML = numbers.getAllPrimes();
+        
+    </script>
+</body>
+</html>
